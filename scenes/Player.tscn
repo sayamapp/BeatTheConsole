@@ -1,0 +1,145 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://resources/png/particle3.png" type="Texture" id=1]
+[ext_resource path="res://scripts/Player.gd" type="Script" id=2]
+[ext_resource path="res://resources/png/player/Player2.png" type="Texture" id=3]
+[ext_resource path="res://resources/png/particle1.png" type="Texture" id=4]
+[ext_resource path="res://scripts/PlayerCamera.gd" type="Script" id=5]
+[ext_resource path="res://resources/player_physics_area.tres" type="Shape2D" id=6]
+[ext_resource path="res://resources/png/player/Player1.png" type="Texture" id=7]
+[ext_resource path="res://resources/png/particle2.png" type="Texture" id=8]
+[ext_resource path="res://resources/png/player/Player3.png" type="Texture" id=9]
+[ext_resource path="res://scenes/PlayerGlitch.tscn" type="PackedScene" id=10]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "air",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "run",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "idle",
+"speed": 2.0
+} ]
+
+[sub_resource type="Curve" id=2]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.154696, 0.499382 ), 0.0, 0.0, 0, 0 ]
+
+[node name="Player" type="KinematicBody2D" groups=[
+"glitch",
+]]
+position = Vector2( 60.0556, 174.286 )
+collision_mask = 2
+script = ExtResource( 2 )
+speed = 50.0
+high_jump_force = 180.0
+gravity = 300.0
+glitch_jump_force = 110.0
+player_glitch = ExtResource( 10 )
+
+[node name="HitArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 36
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea"]
+shape = ExtResource( 6 )
+
+[node name="CheckGround" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 0, 9 )
+collision_mask = 2
+
+[node name="CheckGlitch" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 0, -20 )
+collision_mask = 2
+
+[node name="CheckJump" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 0, -12 )
+collision_mask = 2
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+animation = "air"
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = ExtResource( 6 )
+
+[node name="PlayerCamera" type="Camera2D" parent="."]
+current = true
+limit_left = 0
+limit_top = 0
+limit_right = 400
+limit_bottom = 300
+limit_smoothed = true
+script = ExtResource( 5 )
+
+[node name="Tween" type="Tween" parent="PlayerCamera"]
+
+[node name="DeathEffect" type="Node2D" parent="."]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="DeathEffect"]
+modulate = Color( 2, 2, 2, 1 )
+emitting = false
+amount = 12
+lifetime = 3.0
+one_shot = true
+explosiveness = 1.0
+local_coords = false
+texture = ExtResource( 4 )
+direction = Vector2( 0, -1 )
+spread = 106.94
+gravity = Vector2( 0, 200 )
+initial_velocity = 130.0
+initial_velocity_random = 0.88
+angular_velocity = 720.0
+angular_velocity_random = 1.0
+scale_amount = 2.0
+scale_amount_curve = SubResource( 2 )
+
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="DeathEffect"]
+modulate = Color( 2, 2, 2, 1 )
+emitting = false
+amount = 12
+lifetime = 3.0
+one_shot = true
+explosiveness = 1.0
+local_coords = false
+texture = ExtResource( 1 )
+direction = Vector2( 0, -1 )
+spread = 106.94
+gravity = Vector2( 0, 200 )
+initial_velocity = 130.0
+initial_velocity_random = 0.88
+angular_velocity = 720.0
+angular_velocity_random = 1.0
+scale_amount = 2.0
+scale_amount_curve = SubResource( 2 )
+
+[node name="CPUParticles2D3" type="CPUParticles2D" parent="DeathEffect"]
+modulate = Color( 2, 2, 2, 1 )
+emitting = false
+amount = 12
+lifetime = 3.0
+one_shot = true
+explosiveness = 1.0
+local_coords = false
+texture = ExtResource( 8 )
+direction = Vector2( 0, -1 )
+spread = 106.94
+gravity = Vector2( 0, 200 )
+initial_velocity = 130.0
+initial_velocity_random = 0.88
+angular_velocity = 720.0
+angular_velocity_random = 1.0
+scale_amount = 2.0
+scale_amount_curve = SubResource( 2 )

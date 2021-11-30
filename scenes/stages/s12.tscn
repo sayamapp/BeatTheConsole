@@ -1,0 +1,227 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://resources/map.tres" type="TileSet" id=1]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/Door.tscn" type="PackedScene" id=3]
+[ext_resource path="res://resources/fonts/PixelMplus10-Regular.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://scripts/Event.gd" type="Script" id=7]
+[ext_resource path="res://scripts/Game.gd" type="Script" id=8]
+[ext_resource path="res://resources/png/window.png" type="Texture" id=9]
+[ext_resource path="res://resources/png/stage_glitch.png" type="Texture" id=10]
+[ext_resource path="res://scripts/Stage.gd" type="Script" id=11]
+[ext_resource path="res://scripts/StageGlitch.gd" type="Script" id=12]
+[ext_resource path="res://scenes/Environment.tscn" type="PackedScene" id=15]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 7.98454, 3.45574 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 10
+font_data = ExtResource( 6 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "close"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 75.2776, 79.5104 ), Vector2( 75, 132 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 165, 60 ), Vector2( 165, 8 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("MarginContainer/Contents:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "open"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("MarginContainer/Contents:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 75, 132 ), Vector2( 75.2776, 79.5104 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 165, 8 ), Vector2( 165, 60 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[node name="Game" type="Node"]
+script = ExtResource( 8 )
+
+[node name="Environment" parent="." instance=ExtResource( 15 )]
+position = Vector2( 0, 0.0588837 )
+
+[node name="Stage" type="Node2D" parent="."]
+script = ExtResource( 11 )
+glitch_n = 5
+
+[node name="StageGlitch" type="Sprite" parent="Stage"]
+position = Vector2( 22.6245, -32.0158 )
+texture = ExtResource( 10 )
+hframes = 4
+script = ExtResource( 12 )
+
+[node name="Grid" type="TileMap" parent="Stage"]
+modulate = Color( 0, 1, 0.109804, 0.121569 )
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 8, 8 )
+collision_layer = 0
+collision_mask = 0
+format = 1
+tile_data = PoolIntArray( 917510, 2, 0, 917511, 2, 0, 917512, 2, 0, 917513, 2, 0, 917514, 2, 0, 917515, 2, 0, 917516, 2, 0, 917517, 2, 0, 917518, 2, 0, 917519, 2, 0, 917520, 2, 0, 917521, 2, 0, 917522, 2, 0, 917523, 2, 0, 917524, 2, 0, 917525, 2, 0, 917526, 2, 0, 917527, 2, 0, 917528, 2, 0, 917529, 2, 0, 917530, 2, 0, 917531, 2, 0, 917532, 2, 0, 917533, 2, 0, 917534, 2, 0, 983046, 2, 0, 983047, 2, 0, 983048, 2, 0, 983049, 2, 0, 983050, 2, 0, 983051, 2, 0, 983052, 2, 0, 983053, 2, 0, 983054, 2, 0, 983055, 2, 0, 983056, 2, 0, 983057, 2, 0, 983058, 2, 0, 983059, 2, 0, 983060, 2, 0, 983061, 2, 0, 983062, 2, 0, 983063, 2, 0, 983064, 2, 0, 983065, 2, 0, 983066, 2, 0, 983067, 2, 0, 983068, 2, 0, 983069, 2, 0, 983070, 2, 0, 1048582, 2, 0, 1048583, 2, 0, 1048584, 2, 0, 1048585, 2, 0, 1048586, 2, 0, 1048587, 2, 0, 1048588, 2, 0, 1048589, 2, 0, 1048590, 2, 0, 1048591, 2, 0, 1048592, 2, 0, 1048593, 2, 0, 1048594, 2, 0, 1048595, 2, 0, 1048596, 2, 0, 1048597, 2, 0, 1048598, 2, 0, 1048599, 2, 0, 1048600, 2, 0, 1048601, 2, 0, 1048602, 2, 0, 1048603, 2, 0, 1048604, 2, 0, 1048605, 2, 0, 1048606, 2, 0, 1114118, 2, 0, 1114119, 2, 0, 1114120, 2, 0, 1114121, 2, 0, 1114122, 2, 0, 1114123, 2, 0, 1114124, 2, 0, 1114125, 2, 0, 1114126, 2, 0, 1114127, 2, 0, 1114128, 2, 0, 1114129, 2, 0, 1114130, 2, 0, 1114131, 2, 0, 1114132, 2, 0, 1114133, 2, 0, 1114134, 2, 0, 1114135, 2, 0, 1114136, 2, 0, 1114137, 2, 0, 1114138, 2, 0, 1114139, 2, 0, 1114140, 2, 0, 1114141, 2, 0, 1114142, 2, 0, 1179654, 2, 0, 1179655, 2, 0, 1179656, 2, 0, 1179657, 2, 0, 1179658, 2, 0, 1179659, 2, 0, 1179660, 2, 0, 1179661, 2, 0, 1179662, 2, 0, 1179663, 2, 0, 1179664, 2, 0, 1179665, 2, 0, 1179666, 2, 0, 1179667, 2, 0, 1179668, 2, 0, 1179669, 2, 0, 1179670, 2, 0, 1179671, 2, 0, 1179672, 2, 0, 1179673, 2, 0, 1179674, 2, 0, 1179675, 2, 0, 1179676, 2, 0, 1179677, 2, 0, 1179678, 2, 0, 1245190, 2, 0, 1245191, 2, 0, 1245192, 2, 0, 1245193, 2, 0, 1245194, 2, 0, 1245195, 2, 0, 1245196, 2, 0, 1245197, 2, 0, 1245198, 2, 0, 1245199, 2, 0, 1245200, 2, 0, 1245201, 2, 0, 1245202, 2, 0, 1245203, 2, 0, 1245204, 2, 0, 1245205, 2, 0, 1245206, 2, 0, 1245207, 2, 0, 1245208, 2, 0, 1245209, 2, 0, 1245210, 2, 0, 1245211, 2, 0, 1245212, 2, 0, 1245213, 2, 0, 1245214, 2, 0 )
+
+[node name="Main" type="TileMap" parent="Stage"]
+modulate = Color( 0.54, 1.55, 4.27, 0.76 )
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 8, 8 )
+collision_layer = 2
+collision_mask = 0
+format = 1
+tile_data = PoolIntArray( 851973, 0, 1, 851974, 0, 196610, 851975, 0, 196610, 851976, 0, 196610, 851977, 0, 196610, 851978, 0, 196610, 851979, 0, 196610, 851980, 0, 196610, 851981, 0, 196610, 851982, 0, 196610, 851983, 0, 196610, 851984, 0, 196610, 851985, 0, 196610, 851986, 0, 196610, 851987, 0, 196610, 851988, 0, 196610, 851989, 0, 196610, 851990, 0, 196610, 851991, 0, 196610, 851992, 0, 196610, 851993, 0, 196610, 851994, 0, 196610, 851995, 0, 196610, 851996, 0, 196610, 851997, 0, 196610, 851998, 0, 196610, 851999, 0, 3, 917509, 0, 65536, 917535, 0, 65536, 983045, 0, 65536, 983071, 0, 65536, 1048581, 0, 65536, 1048607, 0, 65536, 1114117, 0, 65536, 1114143, 0, 65536, 1179653, 0, 65536, 1179679, 0, 65536, 1245189, 0, 65536, 1245215, 0, 65536, 1310725, 0, 131073, 1310726, 0, 196610, 1310727, 0, 196610, 1310728, 0, 196610, 1310729, 0, 196610, 1310730, 0, 196610, 1310731, 0, 196610, 1310732, 0, 196610, 1310733, 0, 196610, 1310734, 0, 196610, 1310735, 0, 196610, 1310736, 0, 196610, 1310737, 0, 196610, 1310738, 0, 196610, 1310739, 0, 196610, 1310740, 0, 196610, 1310741, 0, 196610, 1310742, 0, 196610, 1310743, 0, 196610, 1310744, 0, 196610, 1310745, 0, 196610, 1310746, 0, 196610, 1310747, 0, 196610, 1310748, 0, 196610, 1310749, 0, 196610, 1310750, 0, 196610, 1310751, 0, 131075, 2031660, 3, 0 )
+
+[node name="Trap" type="TileMap" parent="Stage" groups=["trap"]]
+modulate = Color( 1.15, 0, 0, 0.85 )
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 8, 8 )
+collision_layer = 32
+collision_mask = 0
+format = 1
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 68.8787, 151.636 )
+
+[node name="Events" type="Node" parent="."]
+
+[node name="Event1" type="Area2D" parent="Events"]
+collision_layer = 0
+script = ExtResource( 7 )
+contents = [ "All Clear!
+Thank you for playing!" ]
+event_name = "99"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Events/Event1"]
+position = Vector2( 73, 156 )
+shape = SubResource( 1 )
+
+[node name="Window" type="NinePatchRect" parent="Events/Event1"]
+margin_left = 75.0
+margin_top = 132.0
+margin_right = 240.0
+margin_bottom = 140.0
+texture = ExtResource( 9 )
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="Events/Event1/Window"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 5.0
+margin_right = -6.0
+margin_bottom = -5.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Contents" type="RichTextLabel" parent="Events/Event1/Window/MarginContainer"]
+margin_right = 153.0
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "test test test test test
+test test test test test testq
+test test test test test test
+test test test test teset "
+text = "test test test test test
+test test test test test testq
+test test test test test test
+test test test test teset "
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Events/Event1/Window"]
+anims/close = SubResource( 3 )
+anims/open = SubResource( 4 )
+
+[node name="Door" parent="." instance=ExtResource( 3 )]
+position = Vector2( -23, -21 )

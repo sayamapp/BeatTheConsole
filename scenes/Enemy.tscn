@@ -1,0 +1,76 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://resources/png/enemy/enemy01.png" type="Texture" id=1]
+[ext_resource path="res://scripts/Enemy.gd" type="Script" id=2]
+[ext_resource path="res://scenes/EnemyGlitch.tscn" type="PackedScene" id=3]
+[ext_resource path="res://resources/png/particle4.png" type="Texture" id=4]
+[ext_resource path="res://resources/png/enemy/enemy02.png" type="Texture" id=5]
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "default",
+"speed": 4.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 3.8, 3.5 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 3, 3 )
+
+[node name="Enemy" type="KinematicBody2D" groups=[
+"enemy",
+"glitch",
+]]
+position = Vector2( 182.764, 147.184 )
+collision_layer = 4
+collision_mask = 10
+script = ExtResource( 2 )
+speed = -10.0
+enemy_glitch = ExtResource( 3 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 5 )
+frame = 1
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 0.5 )
+shape = SubResource( 6 )
+
+[node name="HitArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea"]
+shape = SubResource( 7 )
+
+[node name="DeathEffect" type="Node2D" parent="."]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="DeathEffect"]
+modulate = Color( 2, 2, 2, 1 )
+emitting = false
+lifetime = 3.0
+one_shot = true
+explosiveness = 1.0
+texture = ExtResource( 4 )
+direction = Vector2( 0, -1 )
+spread = 135.97
+initial_velocity = 59.14
+initial_velocity_random = 1.0
+angular_velocity = 720.0
+angular_velocity_random = 1.0
+scale_amount = 0.5
+scale_amount_random = 1.0
+
+[node name="CheckRay" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 0, -6 )
+collision_mask = 2
+
+[node name="CheckGround" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 0, 6 )
+collision_mask = 2
